@@ -10,9 +10,7 @@ class CSVAdapter:
         return data
 
     def write_csv(self, file_path, data):
-        headers = data[0].keys()
-
-        with open(file_path, "w", newline="") as file:
-            writer = csv.DictWriter(file, fieldnames=headers)
-            writer.writeheader()
-            writer.writerows(data)
+        with open(file_path, "w", newline="") as csvfile:
+            writer = csv.writer(csvfile)
+            for row in data:
+                writer.writerow(row)

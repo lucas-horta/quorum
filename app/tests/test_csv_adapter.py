@@ -4,57 +4,34 @@ import sys
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
 import unittest
+from unittest.mock import patch, mock_open
 from adapters.csv_adapter import CSVAdapter
 
 class TestCSVAdapter(unittest.TestCase):
     def setUp(self):
-        self.file_path = "test_data.csv"
-        self.adapter = CSVAdapter()
-
-    def tearDown(self):
-        # Clean up the test data file after each test
-        try:
-            os.remove(self.file_path)
-        except FileNotFoundError:
-            pass
+        self.csv_adapter = CSVAdapter()
 
     def test_read_csv(self):
-        # Create a test data file
-        data = [
-            {"Header1": "Value1", "Header2": "Value2"},
-            {"Header1": "Value3", "Header2": "Value4"}
-        ]
-        self.adapter.write_csv(self.file_path, data)
-
-        # Read the test data file using the CSVAdapter
-        result = self.adapter.read_csv(self.file_path)
-
-        # Assert the expected data
         expected_result = [
-            {"Header1": "Value1", "Header2": "Value2"},
-            {"Header1": "Value3", "Header2": "Value4"}
+            {'id': '1', 'name': 'John'},
+            {'id': '2', 'name': 'Jane'}
         ]
-        self.assertEqual(result, expected_result)
+        with patch('builtins.open', new_callable=mock_open, read_data='id,name\n1,John\n2,Jane\n') as mock_file:
+            result = self.csv_adapter.read_csv('test.csv')
+            self.assertEqual(result, expected_result)
+            mock_file.assert_called_once_with('test.csv', 'r', newline='')
 
     def test_write_csv(self):
-        # Prepare test data
         data = [
-            {"Header1": "Value1", "Header2": "Value2"},
-            {"Header1": "Value3", "Header2": "Value4"}
+            ['id', 'name'],
+            ['1', 'John'],
+            ['2', 'Jane']
         ]
 
-        # Write the test data to a CSV file using the CSVAdapter
-        self.adapter.write_csv(self.file_path, data)
-
-        # Read the written CSV file to verify its content
-        result = self.adapter.read_csv(self.file_path)
-
-        # Assert the expected CSV content
-        expected_result = [
-            {"Header1": "Value1", "Header2": "Value2"},
-            {"Header1": "Value3", "Header2": "Value4"}
-        ]
+        self.csv_adapter.write_csv('test.csv', data)
+        result = self.csv_adapter.read_csv('test.csv')
+        expected_result = [{'id': '1', 'name': 'John'}, {'id': '2', 'name': 'Jane'}]
         self.assertEqual(result, expected_result)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()
