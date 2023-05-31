@@ -17,6 +17,7 @@ app/                              --- Application root
 │  ├─ test_bill_analysis.py       --- Test cases for bill analysis
 │  ├─ test_csv_adapter.py         --- Test cases for CSV adapter
 │  ├─ test_legislator_analysis.py --- Test cases for legislator analysis
+├─ api.py                         --- API module to retrieve results in JSON
 ├─ main.py                        --- Run the app
 ```
 
@@ -31,7 +32,7 @@ Requirements:
 
 2. Navigate to project directory
 
-3. Install dependencies (necessary for test coverage and API module)
+3. Install dependencies (required for test coverage and API module)
 `pip install -r requirements.txt`
 
 4. Run tests
@@ -44,3 +45,8 @@ Requirements:
 6. Results will be found in project root folder:
 `bills.csv`
 `legislators-support-oppose-count.csv`
+
+7. Uvicorn server will also start listening at localhost:8000/api/
+GET endpoints available:
+`/bill-analysis`
+`/legislator-analysis`
