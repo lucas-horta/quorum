@@ -25,7 +25,7 @@ app/                              --- Application root
 
 Requirements:
 - [Git](https://git-scm.com/downloads)
-- [Python3.10](https://www.python.org/downloads/)
+- [Python3.11](https://www.python.org/downloads/)
 
 1. Clone the repository
 `git clone https://github.com/lucas-horta/quorum.git`
