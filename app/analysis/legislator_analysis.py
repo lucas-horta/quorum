@@ -16,11 +16,13 @@ class LegislatorAnalysis:
 
     def analyze_legislators(self):
         csv_adapter = CSVAdapter()
-        
         legislators = csv_adapter.read_csv(self.legislators_file)
         vote_results = csv_adapter.read_csv(self.vote_results_file)
-        
         legislator_votes = {}
+
+        # We iterate over legislators to get our base dictionary.
+        # Then we iterate over vote results and tally up the number of
+        # supported and opposed bills for each legislator.
 
         for legislator in legislators:
             legislator_id = legislator['id']
@@ -34,11 +36,16 @@ class LegislatorAnalysis:
         for vote_result in vote_results:
             vote_type = vote_result['vote_type']
             if vote_type == '1':
-                legislator_votes[vote_result['legislator_id']]['num_supported_bills'] += 1
+                legislator_votes[vote_result['legislator_id']
+                                 ]['num_supported_bills'] += 1
             elif vote_type == '2':
-                legislator_votes[vote_result['legislator_id']]['num_opposed_bills'] += 1
+                legislator_votes[vote_result['legislator_id']
+                                 ]['num_opposed_bills'] += 1
 
         return list(legislator_votes.values())
+
+    # Using the headers provided in the documentation, 
+    # we export our data to the legislators csv
 
     def export_results(self, legislator_votes):
         csv_adapter = CSVAdapter()

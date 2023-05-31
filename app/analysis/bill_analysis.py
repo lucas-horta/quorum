@@ -22,11 +22,19 @@ class BillAnalysis:
         votes = csv_adapter.read_csv(self.votes_file)
         legislators = csv_adapter.read_csv(self.legislators_file)
 
+        # We create a dictionary with legislator names so that we can 
+        # figure out who the primary sponsor to a bill is
         legislator_names = {
              legislator['id']: legislator['name'] for legislator in legislators
         }
 
         results = {}
+
+        # We iterate over the bills to get our base dictionary.
+        # We then iterate over votes and vote results if those are tied
+        # to the specific bill. We do have a lot of nested for loops,
+        # but this solution makes sure each level is nested in conditions
+        # so that we don't get a O(n³) level complexity.
 
         for bill in bills:
             sponsor_id = bill['sponsor_id']
@@ -51,6 +59,9 @@ class BillAnalysis:
                             elif vote_type == '2':
                                 results[bill_id]['opposer_count'] += 1
         return list(results.values())
+
+    # Using the headers provided in the documentation, 
+    # we export our data to the bills csv
 
     def export_results(self, bills):
         csv_adapter = CSVAdapter()
