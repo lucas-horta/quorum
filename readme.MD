@@ -54,14 +54,14 @@ GET endpoints available:
 
 ## Quorum questions
 
-# 1. Discuss your solution's time complexity. What tradeoffs did you make?
+### 1. Discuss your solution's time complexity. What tradeoffs did you make?
 The solution took a heavy focus on making sure it wouldn't have too many nested for loops while reading the CSV files. However, as it's highlighted in analysis/bill_analysis.py, a three-nested for loop was necessary in order to associate the bills to their specific votes. A solution that eliminates this nesting is likely possible using entities, reducing the complexity to O(n), but it would take more time to develop, and this challenge focused on a short development time.
 
-# 2. How would you change your solution to account for future columns that might be requested, such as "Bill Voted On Date" or "Co-Sponsors"?
+### 2. How would you change your solution to account for future columns that might be requested, such as "Bill Voted On Date" or "Co-Sponsors"?
 Since both the reader and writer method in CSVAdapter are dynamic, they wouldn't need changes. However, the export methods on each of the analyses do need an update on their headers to accomodate for new ones.
 
-# 3. How would you change your solution if instead of receiving CSVs of data, you were given a list of legislators or bills that you should generate a CSV for?
+### 3. How would you change your solution if instead of receiving CSVs of data, you were given a list of legislators or bills that you should generate a CSV for?
 While the analyses mention files in their constructors, a file is not necessary to initiate them, and they could take on lists instead of files. A treatment on the adapter reader class would be necessary to accomodate for that, however, and make sure it would turn that list into the appropriate list of dictionaries that it currently returns to the analysis classes.
 
-# 4. How lond did you spend working on the assignment?
+### 4. How lond did you spend working on the assignment?
 About 5 hours.
