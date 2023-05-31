@@ -49,15 +49,5 @@ class LegislatorAnalysis:
             legislator["num_supported_bills"],
             legislator["num_opposed_bills"]
         ] for legislator in legislator_votes]
-        print(csv_data)
         csv_adapter.write_csv("legislators-support-oppose-count.csv", csv_data)
-
-
-def main():
-    legislators_file = os.path.join(os.path.dirname(__file__), '..', 'data', '', 'legislators.csv')
-    vote_results_file = os.path.join(os.path.dirname(__file__), '..', 'data', '', 'vote_results.csv')
-    runner = LegislatorAnalysis(legislators_file, vote_results_file)
-    runner.run_analysis()
-
-if __name__ == "__main__":
-    main()
+        
