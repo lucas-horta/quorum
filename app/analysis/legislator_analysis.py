@@ -23,31 +23,30 @@ class LegislatorAnalysis:
         legislator_votes = {}
 
         for legislator in legislators:
-            legislator_id = legislator["id"]
+            legislator_id = legislator['id']
             legislator_votes[legislator_id] = {
-                "id": legislator_id,
-                "name": legislator["name"],
-                "num_supported_bills": 0,
-                "num_opposed_bills": 0
+                'id': legislator_id,
+                'name': legislator['name'],
+                'num_supported_bills': 0,
+                'num_opposed_bills': 0
             }
 
         for vote_result in vote_results:
-            vote_type = vote_result["vote_type"]
-            if vote_type == "1":
-                legislator_votes[vote_result["legislator_id"]]["num_supported_bills"] += 1
-            elif vote_type == "2":
-                legislator_votes[vote_result["legislator_id"]]["num_opposed_bills"] += 1
+            vote_type = vote_result['vote_type']
+            if vote_type == '1':
+                legislator_votes[vote_result['legislator_id']]['num_supported_bills'] += 1
+            elif vote_type == '2':
+                legislator_votes[vote_result['legislator_id']]['num_opposed_bills'] += 1
 
         return list(legislator_votes.values())
 
     def export_results(self, legislator_votes):
         csv_adapter = CSVAdapter()
-        headers = ["id", "name", "num_supported_bills", "num_opposed_bills"]
+        headers = ['id', 'name', 'num_supported_bills', 'num_opposed_bills']
         csv_data = [headers] + [[
-            legislator["id"],
-            legislator["name"],
-            legislator["num_supported_bills"],
-            legislator["num_opposed_bills"]
+            legislator['id'],
+            legislator['name'],
+            legislator['num_supported_bills'],
+            legislator['num_opposed_bills']
         ] for legislator in legislator_votes]
-        csv_adapter.write_csv("legislators-support-oppose-count.csv", csv_data)
-        
+        csv_adapter.write_csv('legislators-support-oppose-count.csv', csv_data)
