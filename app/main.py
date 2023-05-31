@@ -8,8 +8,8 @@ from analysis.legislator_analysis import LegislatorAnalysis
 from fastapi import FastAPI
 from app.api import app as api_app
 
+# API Module setup
 app = FastAPI()
-
 app.mount("/api", api_app)
 
 if __name__ == "__main__":
@@ -36,5 +36,6 @@ if __name__ == "__main__":
     )
     legislators_analysis.run_analysis()
 
+    # Start uvicorn server for the API module
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
