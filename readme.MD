@@ -41,6 +41,6 @@ Requirements:
 5. Run the application
 `python app/main.py`
 
-6. Results will be found in application root folder:
+6. Results will be found in project root folder:
 `bills.csv`
 `legislators-support-oppose-count.csv`
