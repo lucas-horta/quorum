@@ -5,6 +5,12 @@ project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
 from analysis.bill_analysis import BillAnalysis
 from analysis.legislator_analysis import LegislatorAnalysis
+from fastapi import FastAPI
+from app.api import app as api_app
+
+app = FastAPI()
+
+app.mount("/api", api_app)
 
 if __name__ == "__main__":
 
@@ -29,3 +35,6 @@ if __name__ == "__main__":
         legislators_file, vote_results_file
     )
     legislators_analysis.run_analysis()
+
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
